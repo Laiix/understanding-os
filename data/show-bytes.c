@@ -3,9 +3,16 @@
 #include <stdlib.h>
 #include <string.h>
 
+//typedef关键字可以用于给数据类型定义一个别名
 typedef unsigned char *byte_pointer;
 
-void show_bytes(byte_pointer start, size_t len) {  //它是一种“整型”类型，里面保存的是一个整数，就像int, long那样。这种整数用来记录一个大小(size)。size_t 的全称应该是size type，就是说“一种用来记录大小的数据类型”。通常我们用sizeof(XXX)操作，这个操作所得到的结果就是size_t类型。因为size_t类型的数据其实是保存了一个整数，所以它也可以做加减乘除，也可以转化为int并赋值给int类型的变量
+/*
+ * 它是一种“整型”类型，里面保存的是一个整数，就像int, long那样。这种整数用来记录一个大小(size)。
+ * size_t 的全称应该是size type，就是说“一种用来记录大小的数据类型”。
+ * 通常我们用sizeof(XXX)操作，这个操作所得到的结果就是size_t类型。因为size_t类型的数据其实是保存
+ * 了一个整数，所以它也可以做加减乘除，也可以转化为int并赋值给int类型的变量。
+ */
+void show_bytes(byte_pointer start, size_t len) {
     size_t i;
     for (i = 0; i < len; i++)
 	printf(" %.2x", start[i]);    //line:data:show_bytes_printf
@@ -13,6 +20,7 @@ void show_bytes(byte_pointer start, size_t len) {  //它是一种“整型”类
 }
 
 void show_int(int x) {
+    //sizeof是一个操作符，其作用是返回一个对象或类型所占的内存字节数
     show_bytes((byte_pointer) &x, sizeof(int)); //line:data:show_bytes_amp1
 }
 
@@ -20,7 +28,7 @@ void show_float(float x) {
     show_bytes((byte_pointer) &x, sizeof(float)); //line:data:show_bytes_amp2
 }
 
-void show_pointer(void *x) {
+void show_pointer(void *x) { //void *则为“无类型指针”
     show_bytes((byte_pointer) &x, sizeof(void *)); //line:data:show_bytes_amp3
 }
 /* $end show-bytes */
@@ -38,23 +46,23 @@ void test_show_bytes(int val) {
 /* $end test-show-bytes */
 
 void simple_show_a() {
-/* $begin simple-show-a */
-int val = 0x87654321;
-byte_pointer valp = (byte_pointer) &val;
-show_bytes(valp, 1); /* A. */
-show_bytes(valp, 2); /* B. */
-show_bytes(valp, 3); /* C. */
-/* $end simple-show-a */
+  /* $begin simple-show-a */
+  int val = 0x87654321;
+  byte_pointer valp = (byte_pointer) &val;
+  show_bytes(valp, 1); /* A. */
+  show_bytes(valp, 2); /* B. */
+  show_bytes(valp, 3); /* C. */
+  /* $end simple-show-a */
 }
 
 void simple_show_b() {
-/* $begin simple-show-b */
-int val = 0x12345678;
-byte_pointer valp = (byte_pointer) &val;
-show_bytes(valp, 1); /* A. */
-show_bytes(valp, 2); /* B. */
-show_bytes(valp, 3); /* C. */
-/* $end simple-show-b */
+  /* $begin simple-show-b */
+  int val = 0x12345678;
+  byte_pointer valp = (byte_pointer) &val;
+  show_bytes(valp, 1); /* A. */
+  show_bytes(valp, 2); /* B. */
+  show_bytes(valp, 3); /* C. */
+  /* $end simple-show-b */
 }
 
 void float_eg() {
@@ -73,17 +81,17 @@ void float_eg() {
 }
 
 void string_ueg() {
-/* $begin show-ustring */
-const char *s = "ABCDEF";
-show_bytes((byte_pointer) s, strlen(s)); 
-/* $end show-ustring */
+  /* $begin show-ustring */
+  const char *s = "ABCDEF";
+  show_bytes((byte_pointer) s, strlen(s)); 
+  /* $end show-ustring */
 }
 
 void string_leg() {
-/* $begin show-lstring */
-const char *s = "abcdef";
-show_bytes((byte_pointer) s, strlen(s)); 
-/* $end show-lstring */
+  /* $begin show-lstring */
+  const char *s = "abcdef";
+  show_bytes((byte_pointer) s, strlen(s)); 
+  /* $end show-lstring */
 }
 
 void show_twocomp() 
